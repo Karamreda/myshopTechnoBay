@@ -1,0 +1,888 @@
+﻿@using myshop.Utilities
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="TechnoBay - Premium Tech Products at Best Prices" />
+    <meta name="author" content="" />
+    <title>@ViewData["Title"] - TechnoBay</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Fonts & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link href="~/customer/css/styles.css" rel="stylesheet" />
+    <style>
+        :root {
+        --primary: #3b82f6;
+        --primary-dark: #2563eb;
+        --secondary: #10b981;
+        --accent: #f59e0b;
+        --dark: #1e293b;
+        --light: #f8fafc;
+        --gradient: linear-gradient(135deg, #3b82f6, #8b5cf6);
+        }
+
+        * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        }
+
+        body {
+        font-family: 'Montserrat', sans-serif;
+        background-color: var(--light);
+        color: var(--dark);
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+        }
+
+        /*----- Navbar -----*/
+        .navbar {
+        background: rgba(255, 255, 255, 0.95) !important;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        padding: 0.8rem 0;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .navbar.scrolled {
+        padding: 0.5rem 0;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .navbar-brand {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.8rem;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        background: var(--gradient);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        }
+
+        .navbar-brand img {
+        height: 40px;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover img {
+        transform: rotate(-15deg) scale(1.1);
+        }
+
+        .nav-link {
+        font-weight: 600;
+        font-size: 1.05rem;
+        color: var(--dark) !important;
+        margin: 0 0.3rem;
+        padding: 0.5rem 1rem !important;
+        position: relative;
+        transition: all 0.3s ease;
+        }
+
+        .nav-link:before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 3px;
+        background: var(--gradient);
+        border-radius: 3px;
+        transition: width 0.3s ease;
+        }
+
+        .nav-link:hover:before,
+        .nav-link.active:before {
+        width: 70%;
+        }
+
+        .nav-link:hover {
+        color: var(--primary) !important;
+        }
+
+        /*----- Hero Slider -----*/
+        .hero {
+        position: relative;
+        overflow: hidden;
+        }
+
+        .hero-slide {
+        height: 100vh;
+        min-height: 700px;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        }
+
+        .hero-content {
+        z-index: 2;
+        animation: fadeInUp 1s ease;
+        }
+
+        .hero-title {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 4rem;
+        font-weight: 800;
+        line-height: 1.1;
+        letter-spacing: -1px;
+        background: linear-gradient(to right, #fff, #cbd5e1);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        margin-bottom: 1.5rem;
+        }
+
+        .hero-subtitle {
+        font-size: 1.5rem;
+        color: rgba(255, 255, 255, 0.9);
+        max-width: 700px;
+        margin: 0 auto 2.5rem;
+        animation: fadeInUp 1s ease 0.3s forwards;
+        opacity: 0;
+        }
+
+        /* Carousel Controls */
+        .carousel-control-prev,
+        .carousel-control-next {
+        width: 50px;
+        height: 50px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 50%;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 1;
+        transition: all 0.3s ease;
+        }
+
+        .carousel-control-prev:hover,
+        .carousel-control-next:hover {
+        background: var(--primary);
+        }
+
+        .carousel-control-prev {
+        left: 30px;
+        }
+
+        .carousel-control-next {
+        right: 30px;
+        }
+
+        .carousel-indicators {
+        bottom: 30px;
+        }
+
+        .carousel-indicators button {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: rgba(255,255,255,0.5);
+        border: none;
+        margin: 0 5px;
+        }
+
+        .carousel-indicators button.active {
+        background-color: var(--primary);
+        }
+
+        /*----- Buttons -----*/
+        .btn-primary {
+        background: var(--gradient);
+        border: none;
+        color: white;
+        font-weight: 600;
+        padding: 0.8rem 2rem;
+        border-radius: 50px;
+        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        }
+
+        .btn-primary:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+        z-index: -1;
+        transition: opacity 0.3s ease;
+        opacity: 0;
+        }
+
+        .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
+        }
+
+        .btn-primary:hover:before {
+        opacity: 1;
+        }
+
+        /*----- Cards -----*/
+        .card {
+        border: none;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        background: white;
+        margin-bottom: 1.5rem;
+        cursor: pointer;
+        }
+
+        .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-img-top {
+        height: 220px;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+        }
+
+        .card:hover .card-img-top {
+        transform: scale(1.05);
+        }
+
+        .card-body {
+        padding: 1.5rem;
+        }
+
+        .card-title {
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+        }
+
+        .card-text {
+        color: #64748b;
+        margin-bottom: 1.25rem;
+        }
+
+        /*----- Footer -----*/
+        footer {
+        background: var(--dark);
+        color: white;
+        padding: 4rem 0 2rem;
+        position: relative;
+        clip-path: polygon(0 5%, 100% 0, 100% 100%, 0% 100%);
+        }
+
+        footer:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: var(--gradient);
+        }
+
+        .footer-links a {
+        color: rgba(255, 255, 255, 0.7);
+        transition: all 0.3s ease;
+        text-decoration: none;
+        }
+
+        .footer-links a:hover {
+        color: white;
+        transform: translateX(5px);
+        }
+
+        .social-icons a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        margin-right: 0.75rem;
+        transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+        background: var(--primary);
+        transform: translateY(-5px);
+        }
+
+        /*----- About Page Styles -----*/
+        .about-section {
+        position: relative;
+        overflow: hidden;
+        padding: 5rem 0;
+        }
+
+        .about-image {
+        position: relative;
+        }
+
+        .experience-box {
+        position: absolute;
+        bottom: -20px;
+        right: -20px;
+        width: 150px;
+        text-align: center;
+        z-index: 2;
+        background: var(--gradient);
+        color: white;
+        padding: 1rem;
+        border-radius: 12px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .icon-box {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+        }
+
+        .team-section {
+        padding: 5rem 0;
+        background: #f9fafb;
+        }
+
+        .team-card {
+        transition: all 0.3s ease;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        padding: 2rem;
+        text-align: center;
+        background: white;
+        border-radius: 16px;
+        }
+
+        .team-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .team-card img {
+        border: 3px solid #f3f4f6;
+        transition: all 0.3s ease;
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        margin-bottom: 1rem;
+        }
+
+        .team-card:hover img {
+        border-color: var(--primary);
+        }
+
+        .social-links a {
+        display: inline-flex;
+        width: 36px;
+        height: 36px;
+        background: #f3f4f6;
+        color: var(--dark);
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        margin: 0 5px;
+        transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+        background: var(--primary);
+        color: white;
+        transform: translateY(-3px);
+        }
+
+        /*----- Animations -----*/
+        @@keyframes fadeInUp {
+        from {
+        opacity: 0;
+        transform: translateY(30px);
+        }
+
+        to {
+        opacity: 1;
+        transform: translateY(0);
+        }
+        }
+
+        @@keyframes float {
+        0%, 100% {
+        transform: translateY(0);
+        }
+
+        50% {
+        transform: translateY(-10px);
+        }
+        }
+
+        /*----- Responsive Design -----*/
+        @@media (max-width: 992px) {
+        .hero-title {
+        font-size: 3rem;
+        }
+
+        .hero-subtitle {
+        font-size: 1.25rem;
+        }
+
+        .about-section {
+        text-align: center;
+        }
+
+        .experience-box {
+        right: 50%;
+        transform: translateX(50%);
+        }
+        }
+
+        @@media (max-width: 768px) {
+        .navbar-brand {
+        font-size: 1.5rem;
+        }
+
+        .hero-slide {
+        height: 80vh;
+        min-height: 600px;
+        text-align: center;
+        }
+
+        .hero-title {
+        font-size: 2.5rem;
+        }
+
+        .hero-subtitle {
+        font-size: 1.1rem;
+        max-width: 90%;
+        }
+
+        .carousel-control-prev,
+        .carousel-control-next {
+        width: 40px;
+        height: 40px;
+        }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="/Customer/Home/Index">
+                
+                TechnoBay
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/Customer/Home/Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Customer/Home/Index#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Customer/Home/Index#products">Products</a>
+                    </li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole(SD.AdminRole))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Admin/Dashboard/Index">Dashboard</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">Account</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="#"><i class="bi bi-bag-check me-2"></i>My Orders</a></li>
+                                    <li><hr class="dropdown-divider" /></li>
+                                    <li><a class="dropdown-item" href="/Identity/Account/Manage"><i class="bi bi-person-gear me-2"></i>Edit Profile</a></li>
+                                </ul>
+                            </li>
+                        }
+                    }
+                </ul>
+
+                <div class="d-flex align-items-center">
+                    <partial name="_LoginPartial" />
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a href="/Customer/Cart/Index" class="btn btn-primary ms-3 position-relative">
+                            <i class="bi bi-cart3 me-2"></i>
+                            Cart
+                            @await Component.InvokeAsync("ShoppingCart")
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-accent">
+                                <span class="visually-hidden">cart items</span>
+                            </span>
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    @{
+        var action = ViewContext.RouteData.Values["action"]?.ToString();
+        var controller = ViewContext.RouteData.Values["controller"]?.ToString();
+    }
+
+    @if (action == "Index" && controller == "Home")
+    {
+        <!-- Hero Slider (Only on Home Page) -->
+        <section class="hero">
+            <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="hero-slide" style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/Images/cover5.jpg') no-repeat center center/cover;">
+                            <div class="container px-4 px-lg-5">
+                                <div class="hero-content text-center">
+                                    <h1 class="hero-title">Premium Tech Products<br>At Unbeatable Prices</h1>
+                                    <p class="hero-subtitle">Discover the latest gadgets with exclusive discounts</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="hero-slide" style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/Images/cover3.jpg') no-repeat center center/cover;">
+                            <div class="container px-4 px-lg-5">
+                                <div class="hero-content text-center">
+                                    <h1 class="hero-title">New Arrivals<br>Every Week</h1>
+                                    <p class="hero-subtitle">Stay updated with the newest tech products</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="hero-slide" style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/Images/cover2.jpg') no-repeat center center/cover;">
+                            <div class="container px-4 px-lg-5">
+                                <div class="hero-content text-center">
+                                    <h1 class="hero-title">Fast Delivery<br>Across Egypt</h1>
+                                    <p class="hero-subtitle">Get your orders delivered to your doorstep</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+            </div>
+        </section>
+    }
+    
+
+    <!-- Main Content -->
+    <main class="py-5 my-5">
+        @RenderBody()
+    </main>
+    <!---->
+    <section id ="about">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <div class="about-image position-relative">
+                        <img src="/Images/cover1.jpg" alt="About TechnoBay" class="img-fluid rounded-3 shadow">
+                        <div class="experience-box">
+                            <h3 class="mb-0">5+</h3>
+                            <p class="mb-0">Years Experience</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="section-title mb-4">Who We Are</h2>
+                    <p class="lead">TechnoBay is a leading tech retailer based in Egypt, dedicated to bringing you the latest and greatest in technology at competitive prices.</p>
+                    <p>Founded in 2020, we started as a small team of tech enthusiasts with a vision to make cutting-edge technology accessible to everyone in the region. Today, we've grown into one of the most trusted names in the Egyptian tech market.</p>
+                    <p>Our mission is simple: to provide high-quality tech products with exceptional customer service, fast delivery, and after-sales support that you can rely on.</p>
+
+                    <div class="row mt-5">
+                        <div class="col-md-6 mb-4">
+                            <div class="d-flex">
+                                <div class="icon-box bg-primary me-4">
+                                    <i class="bi bi-shield-check"></i>
+                                </div>
+                                <div>
+                                    <h5>Quality Assurance</h5>
+                                    <p class="mb-0">All products are 100% original with official warranties</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="d-flex">
+                                <div class="icon-box bg-secondary me-4">
+                                    <i class="bi bi-truck"></i>
+                                </div>
+                                <div>
+                                    <h5>Fast Delivery</h5>
+                                    <p class="mb-0">Same-day delivery in Cairo, 2-3 days nationwide</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="d-flex">
+                                <div class="icon-box bg-accent me-4">
+                                    <i class="bi bi-headset"></i>
+                                </div>
+                                <div>
+                                    <h5>24/7 Support</h5>
+                                    <p class="mb-0">Our customer service team is always ready to help</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="d-flex">
+                                <div class="icon-box bg-dark me-4">
+                                    <i class="bi bi-arrow-repeat"></i>
+                                </div>
+                                <div>
+                                    <h5>Easy Returns</h5>
+                                    <p class="mb-0">14-day return policy for all products</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-3 col-6 mb-4 mb-md-0">
+                    <h2 class="display-4 text-primary">10,000+</h2>
+                    <p class="mb-0">Happy Customers</p>
+                </div>
+                <div class="col-md-3 col-6 mb-4 mb-md-0">
+                    <h2 class="display-4 text-primary">500+</h2>
+                    <p class="mb-0">Products Available</p>
+                </div>
+                <div class="col-md-3 col-6">
+                    <h2 class="display-4 text-primary">95%</h2>
+                    <p class="mb-0">Positive Reviews</p>
+                </div>
+                <div class="col-md-3 col-6">
+                    <h2 class="display-4 text-primary">24/7</h2>
+                    <p class="mb-0">Customer Support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+
+                <footer>
+                    <div class="container px-4 px-lg-5">
+                        <div class="row gx-4 gx-lg-5 justify-content-between">
+                            <!-- Company Info Column -->
+                            <div class="col-md-4 mb-4">
+                                <h3 class="text-white mb-4">TechnoBay</h3>
+                                <p class="text-muted">
+                                    Your one-stop destination for all tech needs. Quality products with the best prices in the market.
+                                </p>
+                                <div class="social-icons mt-4">
+                                    <a href="#" class="social-icon" aria-label="Facebook">
+                                        <i class="bi bi-facebook"></i>
+                                    </a>
+                                    <a href="#" class="social-icon" aria-label="Twitter">
+                                        <i class="bi bi-twitter"></i>
+                                    </a>
+                                    <a href="#" class="social-icon" aria-label="Instagram">
+                                        <i class="bi bi-instagram"></i>
+                                    </a>
+                                    <a href="#" class="social-icon" aria-label="LinkedIn">
+                                        <i class="bi bi-linkedin"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Quick Links Column -->
+                            <div class="col-md-2 mb-4">
+                                <h5 class="text-white mb-4">Quick Links</h5>
+                                <ul class="list-unstyled footer-links">
+                                    <li class="mb-2">
+                                        <a href="/Customer/Home/Index" class="footer-link">Home</a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="/Customer/Home/About" class="footer-link">About</a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="/Customer/Home/Index#products" class="footer-link">Products</a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="/Customer/Home/Contact" class="footer-link">Contact</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Contact Info Column -->
+                            <div class="col-md-3 mb-4">
+                                <h5 class="text-white mb-4">Contact Info</h5>
+                                <ul class="list-unstyled text-muted">
+                                    <li class="mb-2">
+                                        <i class="bi bi-geo-alt me-2"></i>
+                                        123 Tech Street, Cairo, Egypt
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="bi bi-envelope me-2"></i>
+                                        info@technobay.com
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="bi bi-phone me-2"></i>
+                                        +20 123 456 7890
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Footer Divider -->
+                        <hr class="my-4 bg-light opacity-10">
+
+                        <!-- Copyright Section -->
+                        <div class="row">
+                            <div class="col-md-6 text-center text-md-start">
+                                <p class="small text-muted mb-0">
+                                    &copy; 2025 TechnoBay. All rights reserved.
+                                </p>
+                            </div>
+                            <div class="col-md-6 text-center text-md-end">
+                                <p class="small text-muted mb-0">
+                                    Designed with <i class="bi bi-heart-fill text-danger"></i> by TechnoBay Team
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="btn btn-primary btn-lg back-to-top" id="backToTop">
+        <i class="bi bi-arrow-up"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Back to top button
+        const backToTopButton = document.getElementById('backToTop');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTopButton.style.opacity = '1';
+                backToTopButton.style.visibility = 'visible';
+            } else {
+                backToTopButton.style.opacity = '0';
+                backToTopButton.style.visibility = 'hidden';
+            }
+        });
+
+        backToTopButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Animation on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.card, .section-title, .team-card');
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        }
+
+        // Set initial state for animated elements
+        document.querySelectorAll('.card, .section-title, .team-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+        });
+
+        // Smooth scroll to product details
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') return;
+
+                const productId = this.getAttribute('data-id');
+                if (!productId) return;
+
+                const productUrl = `/Customer/Product/Details/${productId}`;
+
+                document.body.style.opacity = '0.8';
+                document.body.style.transition = 'opacity 0.3s ease';
+
+                setTimeout(() => {
+                    window.location.href = productUrl;
+                }, 300);
+            });
+        });
+
+        // Initialize hero carousel
+        document.addEventListener('DOMContentLoaded', function() {
+            const heroCarousel = document.querySelector('#heroCarousel');
+            if (heroCarousel) {
+                const carousel = new bootstrap.Carousel(heroCarousel, {
+                    interval: 5000,
+                    pause: "hover",
+                    wrap: true
+                });
+            }
+        });
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.PageTitle = "Products Management";
+    ViewBag.CardTitle = "View Products";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+<!-- SweetAlert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- Toastr -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+<!-- زر إضافة منتج جديد -->
+<div class="d-flex justify-content-end mb-3">
+    <a class="btn btn-success btn-lg rounded-3 px-4" href="/Admin/Product/Create">
+        <i class="fa fa-plus me-2"></i> Create Product
+    </a>
+</div>
+
+<!-- جدول عرض المنتجات -->
+<table id="mytable" class="table table-bordered table-striped table-hover text-center" width="100%">
+    <thead class="bg-dark text-white">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+</table>
+
+@section Styles {
+    <style>
+        #mytable th, #mytable td {
+            vertical-align: middle;
+        }
+
+        .btn-success i {
+            margin-right: 6px;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script src="~/js/products.js"></script>
+}

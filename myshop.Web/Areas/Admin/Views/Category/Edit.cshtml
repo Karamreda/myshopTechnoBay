@@ -1,0 +1,64 @@
+﻿@model Category
+
+@{
+    ViewBag.PageTitle = "Category Management";
+    ViewBag.CardTitle = "Edit Category";
+}
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-warning text-dark text-center rounded-top-4">
+                    <h2 class="mb-0"><i class="fa-solid fa-pen-to-square me-2"></i> @ViewBag.CardTitle</h2>
+                </div>
+                <div class="card-body p-5 bg-light">
+                    <form asp-action="Edit" method="post">
+                        <input type="hidden" asp-for="Id" />
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <!-- Name -->
+                        <div class="mb-4">
+                            <label asp-for="Name" class="form-label fw-semibold">
+                                <i class="fa fa-tag me-1 text-secondary"></i> Category Name
+                            </label>
+                            <input asp-for="Name" class="form-control rounded-3" />
+                            <span asp-validation-for="Name" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mb-4">
+                            <label asp-for="Description" class="form-label fw-semibold">
+                                <i class="fa fa-align-left me-1 text-secondary"></i> Description
+                            </label>
+                            <textarea id="mytextarea" asp-for="Description" class="form-control rounded-3"></textarea>
+                            <span asp-validation-for="Description" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="d-flex justify-content-between mt-4">
+                            <a asp-action="Index" class="btn btn-outline-secondary btn-lg rounded-3 px-4">
+                                <i class="fa fa-arrow-left me-2"></i> Back
+                            </a>
+                            <button type="submit" class="btn btn-warning btn-lg rounded-3 px-5 text-dark">
+                                <i class="fa fa-save me-2"></i> Save
+                            </button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    
+}
